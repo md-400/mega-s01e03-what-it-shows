@@ -13,9 +13,10 @@ reviewed: 2026-09-30
 </script>
 
 <Callout kind="warn">
-This incident summary is historical: #4471 contains more than one cause, and a queued parser
-fix does not cover them all. See
-<a href="/kb/decisions/0002-dedupe-by-cause">decision 0002 and the two current tickets</a>.
+This incident summary is historical: #4471 contains more than one cause. Engineering later
+fixed the parser and retired booking-v3 without fixing its hint. See
+<a href="/kb/incidents/4471-resolution">the latest resolution and the two closed tickets</a>, and
+<a href="/kb/decisions/0002-dedupe-by-cause">decision 0002's current triage rule</a>.
 The calculated tables below remain useful; the one-issue prose does not.
 </Callout>
 

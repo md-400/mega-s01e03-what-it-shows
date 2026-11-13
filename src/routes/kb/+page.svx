@@ -18,6 +18,8 @@ Start with [triage](/kb/triage/dedupe) if you are new on the desk.
 **Current policy:** [decision 0002: split #4471 and deduplicate by cause](/kb/decisions/0002-dedupe-by-cause)
 supersedes the historical subject-only rule in decision 0001.
 
+**Latest incident outcome:** [parser fixed; booking-v3 hint won't fix](/kb/incidents/4471-resolution).
+
 ## Pages
 
 <KbIndex />

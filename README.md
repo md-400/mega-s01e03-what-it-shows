@@ -38,13 +38,18 @@ Exported 2026-10-04 from the `support` repo, `apps/kb/` → `src/`.
 ## S01E03: what the export actually shows
 
 This repository contains fictional course support data, two separately tracked problems,
-and the replacement desk rule. It does not claim that either product fix has shipped.
+and the replacement desk rule. It records engineering's later disposition without claiming
+to have independently tested or deployed the product fixes.
 
 - [Parser: 379 unique reports](https://github.com/md-400/mega-s01e03-what-it-shows/issues/1)
 - [Booking-v3 hint: 33 unique reports](https://github.com/md-400/mega-s01e03-what-it-shows/issues/2)
 - [Signed decision source](src/routes/kb/decisions/0002-dedupe-by-cause/+page.svx)
+- [Latest signed resolution source](src/routes/kb/incidents/4471-resolution/+page.svx)
+- [Latest rendered resolution](rendered/kb/incidents/4471-resolution/index.html)
+- [Engineering update: parser fixed, hint won't fix](evidence/engineering-update.txt)
 - [Rendered decision HTML](rendered/kb/decisions/0002-dedupe-by-cause/index.html)
-- [Browser screenshot](evidence/decision-page.png)
+- [Initial decision screenshot](evidence/decision-page.png)
+- [Latest resolution screenshot](evidence/resolution-page.png)
 - [Computed analysis, report IDs and weekly received/merged counts](evidence/analysis.json)
 
 The 427 exported rows contain 412 unique report IDs. Grouping uses the original
@@ -55,6 +60,11 @@ parser group under that rule, with a note preserving their wording for verificat
 Decision 0002 supersedes decision 0001 without modifying that accepted historical record.
 The triage page, incident summary and kb index point readers to the current rule.
 New reports need continued cause-based triage; "known" and a queued fix do not mean resolved.
+
+Engineering's later update closed #4471 on 5 October: the parser was **fixed**; the hint
+was **won't fix** because booking-v3 was retired. Accordingly issue 1 closes as completed,
+and issue 2 closes as not planned. Retiring the form is not a fix to its misleading hint.
+The accepted decision 0002 stays intact; a separate signed resolution page records the update.
 
 ### Rebuild and view
 

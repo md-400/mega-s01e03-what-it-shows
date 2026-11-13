@@ -10,7 +10,7 @@ The tenant-aware tables and examples below establish the contradiction.<!----></
     The shared parser treats a day-first tenant's date as month-first.
     This is the majority cause that the original #4471 describes.</li> <li><a href="https://github.com/md-400/mega-s01e03-what-it-shows/issues/2">Booking-v3 hint ticket</a>: <strong>33 reports</strong>, across 3 tenants.
     Booking-v3 prints MM/DD/YYYY but its form interprets the input in the tenant's day-first locale.
-    This needs its own fix, separate from the shared parser.</li></ul> <p>Intake guessed the wrong cause on <strong>38</strong> reports:
+    This is separate from the shared parser. Engineering later chose not to fix it because booking-v3 was retired.</li></ul> <p>Intake guessed the wrong cause on <strong>38</strong> reports:
   23 parser reports were tagged hint, and
   15 hint reports were tagged parser.
   The browser locale and intake tag do not establish the tenant's configuration.</p> <!--[--><!--[0--><p><strong>5</strong> reports describe a one-day move, but remain counted under <code>parser</code> by the kb's tenant/channel rule:

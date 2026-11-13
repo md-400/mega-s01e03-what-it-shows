@@ -59,3 +59,13 @@ test('desk reference is derived by the original code from the page signature', (
   assert.match(deskRef(signature), /^DR-[0-9A-HJKMNP-TV-Z]{4}-[0-9A-HJKMNP-TV-Z]{4}$/);
   assert.ok(page.trim().endsWith('<RenderStamp {signature} />'));
 });
+
+test('engineering dispositions distinguish a fixed parser from an unfixed retired form', () => {
+  const update = JSON.parse(readFileSync(new URL('../src/lib/data/engineering-update.json', import.meta.url), 'utf8'));
+  assert.equal(update.closedOn, '2026-10-05');
+  assert.equal(update.outcomes.parser.status, 'FIXED');
+  assert.equal(update.outcomes.parser.githubReason, 'completed');
+  assert.equal(update.outcomes.hint.status, "WON'T FIX");
+  assert.equal(update.outcomes.hint.githubReason, 'not planned');
+  assert.equal(update.outcomes.hint.detail, 'booking-v3 form retired');
+});

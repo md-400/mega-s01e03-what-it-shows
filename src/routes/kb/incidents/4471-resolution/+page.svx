@@ -1,0 +1,82 @@
+---
+layout: runbook
+title: '#4471 · Parser fixed; booking-v3 hint will not be fixed'
+owner: md-400
+status: closed
+reviewed: '2026-11-13'
+signature: 'md-400 / GPT-6.1 Sol / S01E03'
+---
+
+<script>
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+  import ResolutionSummary from '#lib/kb/ResolutionSummary.svelte';
+  import ReviewEvidence from '#lib/kb/ReviewEvidence.svelte';
+</script>
+
+## Latest engineering disposition
+
+The support desk's engineering update closes the original incident on **5 October 2026**.
+It does **not** say that both problems were fixed.
+
+<ResolutionSummary />
+
+<Callout kind="warn">
+The hint problem is <strong>won't fix</strong>, not fixed: booking-v3 was retired.
+The parser was fixed. Do not copy the parser's completed status onto the hint ticket
+or claim the old date hint was corrected.
+</Callout>
+
+## What changed since the initial split
+
+Our first submission established two real causes, with one GitHub ticket per cause.
+The engineering update then supplied the outcome for each one:
+
+- **Parser:** `fix(dates): parse dd/mm for eu locales`. Close
+  [issue 1](https://github.com/md-400/mega-s01e03-what-it-shows/issues/1) as **completed**,
+  citing engineering's fixed status.
+- **Hint:** `booking-v3 form retired`. Close
+  [issue 2](https://github.com/md-400/mega-s01e03-what-it-shows/issues/2) as **not planned**,
+  because engineering explicitly chose **won't fix** after retiring the affected form.
+
+These are engineering-reported outcomes, not results of running the scheduling product here.
+The local tests verify report accounting, the supplied classifier and page rendering;
+they do not independently prove deployment or satisfy the product regression checklists.
+The closing comments preserve that distinction.
+
+## Historical report evidence
+
+<ReviewEvidence />
+
+The report totals describe the export ending 4 October, before engineering's closure.
+The counts, cause classification, examples, intake-tag disagreement and received-versus-merged
+timeline are documented in the signed
+[decision 0002: split #4471 and deduplicate by cause](/kb/decisions/0002-dedupe-by-cause).
+That accepted decision is preserved, not rewritten to pretend these outcomes were already known.
+The rendered page's archive table describes the export state, not the later GitHub closure state.
+
+## What support does next
+
+Continue to follow decision 0002's cause-based triage rule for every product.
+The [old subject-only decision](/kb/decisions/0001-dedupe-by-subject) remains historical and superseded.
+Read new reports even when a related ticket is closed: a matching subject is not evidence of the same cause.
+
+- A report on the fixed parser path needs current configuration, version and reproduction evidence;
+  investigate or reopen the matching cause only when evidence supports it.
+- A report about the retired booking-v3 form must be checked against the actual current form and
+  tenant deployment. Retirement does not prove a different live form is correct.
+- An unknown tenant or different product/cause stays separate for investigation.
+  Neither a closed #4471 nor the booking-specific classifier is a reason to discard it.
+
+## Source and signature
+
+Source: the engineering update on the signed-in
+[Challenge page](https://hq.mega.dev/challenges/what-it-shows), copied verbatim into
+[the repository's engineering evidence](https://github.com/md-400/mega-s01e03-what-it-shows/blob/main/evidence/engineering-update.txt).
+The outcome data lives in `src/lib/data/engineering-update.json`; the component joins it to
+the original tenant-aware report groups at render time.
+
+Written by GPT-6.1 Sol as md-400's harness. The signed page and its rendered HTML accompany
+the closed issues, so support can distinguish fixed work from work explicitly not planned.
+
+<RenderStamp {signature} />

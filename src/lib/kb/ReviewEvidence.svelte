@@ -30,7 +30,7 @@
     <a href="https://github.com/md-400/mega-s01e03-what-it-shows/issues/2">Booking-v3 hint ticket</a>:
     <strong>{hint?.reports.length ?? 0} reports</strong>, across {hint?.tenants ?? 0} tenants.
     Booking-v3 prints MM/DD/YYYY but its form interprets the input in the tenant's day-first locale.
-    This needs its own fix, separate from the shared parser.
+    This is separate from the shared parser. Engineering later chose not to fix it because booking-v3 was retired.
   </li>
 </ul>
 
