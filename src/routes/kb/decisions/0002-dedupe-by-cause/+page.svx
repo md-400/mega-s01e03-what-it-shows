@@ -1,0 +1,115 @@
+---
+layout: runbook
+title: '0002 · Split #4471 and deduplicate by cause'
+owner: md-400
+status: accepted
+reviewed: '2026-11-13'
+signature: 'md-400 / GPT-6.1 Sol / S01E03'
+---
+
+<script>
+  import Callout from '#lib/kb/Callout.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import DedupeExplorer from '#lib/kb/DedupeExplorer.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+  import ReviewEvidence from '#lib/kb/ReviewEvidence.svelte';
+</script>
+
+## Decision and scope
+
+**Supersedes [decision 0001: duplicates share a subject line](/kb/decisions/0001-dedupe-by-subject).**
+Keep that accepted record unchanged as history. Its accepted status does not make its old rule safe to follow.
+
+This is the current desk rule for all products, not just `sched-prod`:
+**merge reports only when evidence establishes the same underlying cause and fix.**
+Similar subjects describe symptoms, not causes. Unknown causes stay separate and need investigation.
+Use each product's configuration and reproduction evidence; do not apply the booking classifier to unrelated products.
+
+<Callout kind="warn">
+The old triage rule and incident prose are unsafe as current instructions.
+The stale warning is a reason to check them, not proof by itself that they are wrong.
+The tenant-aware tables and examples below establish the contradiction.
+</Callout>
+
+## What #4471 actually contains
+
+<ReviewEvidence />
+
+<CauseTable ticket={4471} />
+
+The table's ticket column records the export's state **before** this split:
+the hint cause had no ticket of its own then. Both causes now have the GitHub tickets linked above.
+
+Counts come from `uniqueById`, `groupByCause` and `readAs` in `src/lib/kb/causes.ts`,
+using the exported tenant directory through `tenantOf`. They are calculated when this page renders,
+not copied from intake labels or typed into this page.
+
+## Two fixes, two tickets
+
+### Shared parser
+
+Track the parser cause in [GitHub issue 1](https://github.com/md-400/mega-s01e03-what-it-shows/issues/1).
+For a day-first tenant, the shared parser reads the month before the day.
+Report `R-41200` describes 7 April becoming 4 July for Harbour Dental (`en-GB`, app).
+Report `R-41205` is also a parser report despite its intake hint tag and `en-US` browser locale:
+Morrow Tax's tenant locale is `fr-FR`.
+
+The fix must respect the tenant's intended date format through the shared parsing path.
+Test ambiguous dates in both directions, unambiguous days above 12, and every affected channel.
+Retain the one-day descriptions as regression evidence without claiming an unproved separate defect.
+
+### Booking-v3 field hint
+
+Track the hint cause in [GitHub issue 2](https://github.com/md-400/mega-s01e03-what-it-shows/issues/2).
+For day-first tenants on booking-v3, the field says `MM/DD/YYYY` while the form reads dates day-first.
+People follow that hint and the form interprets their input in the opposite order.
+Report `R-41230` is Copper Studio's booking-v3 form (`es-ES`), even though intake tagged it parser.
+`R-41241` is the same cause for Alder Physio (`de-DE`); the browser locale does not change the tenant.
+
+Align the visible hint and form validation with the tenant's date format.
+Test booking-v3 for Alder Physio, Copper Studio and Pale Harbour, and ensure booking-v2 remains correct.
+Fixing the shared parser alone does not fix this misleading instruction.
+
+## The queue is not the incident clock
+
+<QueueTimeline ticket={4471} />
+
+Read received and merged timestamps separately. Parser reports begin on 1 April;
+hint reports begin on 17 April. The large merge spike in the week of 29 June is backlog processing,
+not the first occurrence or a surge in newly received reports.
+Reports continue after that merge, through the export's last received date in October.
+Neither a merge nor the word "known" proves a fix shipped.
+
+## How the desk handles the next report
+
+1. Deduplicate export rows by report ID. Read the subject and body, then look up the product,
+   tenant locale, booking form version and channel; browser locale and intake tags are only clues.
+2. For this booking system, use the tenant-aware cause rule in `causes.ts`:
+   a day-first tenant on a booking-v3 form belongs to the hint cause; other affected paths belong to parser.
+3. Merge only when the cause and fix match an existing ticket. Different subjects can share a cause;
+   identical subjects can hide different causes. A missing tenant or unplaced cause needs investigation,
+   not a subject-only merge. Never default to merging when unsure.
+4. Keep one ticket per confirmed cause and keep its report count and evidence current.
+   When new reports arrive, add their data, rerun the analysis and render, then update the matching ticket.
+   Do not close a newly different problem as a duplicate of #4471 just because it mentions a date.
+5. Require evidence that the relevant fix shipped and that its regression tests pass before marking it fixed.
+   A known status or queued fix does not stop the desk from triaging continuing reports.
+
+<DedupeExplorer />
+
+The live cases show why subject matching fails: different subjects and channels can share a cause;
+the same subject and tenant can differ by channel; identical subjects with no tenant establish no cause.
+
+## Maintenance and provenance
+
+Owner: md-400, with GPT-6.1 Sol as the writing and analysis harness.
+Evidence: the supplied support kb export, its original classifier, tenant directory,
+report data, desk notes, and the rendered tables above. The export is a snapshot, not a live service.
+The desk should compare later reports with current product evidence rather than assume this snapshot never changes.
+
+Rebuild the page after data or rule changes. Preserve accepted decisions and add a new numbered record
+when policy changes again. The rendered desk reference below is computed from this page's signature
+by the supplied `RenderStamp` component; it is not a hand-written identifier.
+
+<RenderStamp {signature} />
