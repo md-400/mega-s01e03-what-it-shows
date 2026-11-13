@@ -65,6 +65,8 @@ Engineering's later update closed #4471 on 5 October: the parser was **fixed**; 
 was **won't fix** because booking-v3 was retired. Accordingly issue 1 closes as completed,
 and issue 2 closes as not planned. Retiring the form is not a fix to its misleading hint.
 The accepted decision 0002 stays intact; a separate signed resolution page records the update.
+Its signing metadata was corrected to the course-issued value after submission; its accepted
+policy text was not changed.
 
 ### Rebuild and view
 

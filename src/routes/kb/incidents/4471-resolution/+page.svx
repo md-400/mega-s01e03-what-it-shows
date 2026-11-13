@@ -4,7 +4,7 @@ title: '#4471 · Parser fixed; booking-v3 hint will not be fixed'
 owner: md-400
 status: closed
 reviewed: '2026-11-13'
-signature: 'md-400 / GPT-6.1 Sol / S01E03'
+signature: 'v1.eyJzdWIiOiIzNjMxIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTQ1ODA3MTUsImV4cCI6MTc5NDY2NzExNX0.t1igQiF6RXY9XGyV64xQvo3txsQbF0Ya057HxVPp9v4'
 ---
 
 <script>

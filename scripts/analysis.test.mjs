@@ -56,6 +56,7 @@ test('desk reference is derived by the original code from the page signature', (
   const page = readFileSync(new URL('../src/routes/kb/decisions/0002-dedupe-by-cause/+page.svx', import.meta.url), 'utf8');
   const signature = page.match(/^signature: '([^']+)'$/m)?.[1];
   assert.ok(signature);
+  assert.match(signature, /^v1\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/);
   assert.match(deskRef(signature), /^DR-[0-9A-HJKMNP-TV-Z]{4}-[0-9A-HJKMNP-TV-Z]{4}$/);
   assert.ok(page.trim().endsWith('<RenderStamp {signature} />'));
 });
